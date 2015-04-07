@@ -10,33 +10,33 @@ require('../../PHPSocketServer/ServerManager.php');
 class UnCliente extends SocketClient
 {
     
-    // cuando ocurra un error en nuestro cliente se ejecutará esta opción
+    // cuando ocurra un error en nuestro cliente se ejecutara esta opción
     public function onError()
     {
         // enviamos un mensaje a la consola para avisar que hubo un error en un cliente
         echo 'OOps error en un cliente';
     }
     
-    // esto se ejecutará cuando se realice la conexión satisfactoria de un nuevo cliente
+    // esto se ejecutara cuando se realice la conexión satisfactoria de un nuevo cliente
     public function onConnect()
     {
         echo 'Se conectó un cliente';
     }
     
-    // esta función se ejecutará cuando un cliente nos envíe un mensaje
+    // esta función se ejecutara cuando un cliente nos envíe un mensaje
     public function onReceiveMessage($message)
     {
         echo 'El servidor recibio el siguiente mensaje: '.$message;
     }
     
     /* cuando nosotros queremos enviar un mensaje desde el servidor a este cliente,
-     esta función se ejecutará
-    y nos permitirá cancelarlo cambiando el valor de $cancel a false
-    si no cambiamos el valor de cancel el mensaje será enviado 
+     esta función se ejecutara
+    y nos permitira cancelarlo cambiando el valor de $cancel a false
+    si no cambiamos el valor de cancel el mensaje sera enviado 
     */
     public function onSendRequest(&$cancel, $message){}
     
-    /* Esta funcion se ejecutará cuando nuestro servidor envíe un mensaje a este 
+    /* Esta funcion se ejecutara cuando nuestro servidor envie un mensaje a este 
     cliente satisfactoriamente
     */
     public function onSendComplete($message){}
