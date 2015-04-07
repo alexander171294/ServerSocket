@@ -1,7 +1,7 @@
 <?php
 
 // requerimos PHPSocketMaster
-require('../../PHPSocketMaster/src/iSocketMaster.php');
+require('../../PHPSocketMaster/iSocketMaster.php');
 
 // requerimos ServerManager
 require('../../PHPSocketServer/ServerManager.php');
