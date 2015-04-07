@@ -1,7 +1,7 @@
 <?php namespace PHPServerSocket;
 
 // example of implementation of Class Socket Master for listen
-class SocketListener extends PHPSocketMaster\SocketMaster
+class SocketListener extends \PHPSocketMaster\SocketMaster
 {
 
 	// on error message event
@@ -11,7 +11,7 @@ class SocketListener extends PHPSocketMaster\SocketMaster
 		die(); // finish
 	}
 
-	public function onNewConnection(SocketBridge $socket)
+	public function onNewConnection(\PHPSocketMaster\SocketBridge $socket)
 	{
 		ServerManager::AddNewClient();
 		ServerManager::AddClient($socket);
@@ -25,4 +25,6 @@ class SocketListener extends PHPSocketMaster\SocketMaster
 	public function onDisconnect() {}
 	// on receive message event
 	public function onReceiveMessage($message) {}
+  
+  public function onRefresh() {}
 }

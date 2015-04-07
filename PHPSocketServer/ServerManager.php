@@ -1,15 +1,15 @@
 <?php namespace PHPServerSocket;
 
+define('R_LISTEN', 200);
+define('R_NCLIENT', 201);
+define('R_DCLIENT', 202);
+
 // CLASS EXISTS?
 
 require('libs/SocketListener.php');
 require('libs/SocketClient.php');
 
-define('R_LISTEN', 200);
-define('R_NCLIENT', 201);
-define('R_DCLIENT', 202);
-
-class ServerManager
+abstract class ServerManager
 {
 
     static protected $mainSocket = null;
@@ -18,20 +18,22 @@ class ServerManager
     
     static protected $newClient = null;
     
+    static protected $initial = true;
+    
     final static public function start($localIP = '127.0.0.1', $port = '2026')
     {
         // create a new socket
-    		self::$mainSock = new SocketListener($localIP, $port);
+    		self::$mainSocket = new SocketListener($localIP, $port);
     
-    		self::$mainSock->listen(); 
+    		self::$mainSocket->listen(); 
   
-        self::SocketReporter(R_LISTEN);
+        static::SocketReporter(R_LISTEN);
     
-    		self::AddNewClient();
+    		static::AddNewClient();
     
     		while(true)
     		{
-    			self::$mainSock->refreshListen(self::$NewClient); // detect new clients
+    			self::$mainSocket->refreshListen(self::$newClient); // detect new clients
     			// refresh clients
     			for($i=0; $i<count(self::$clients); $i++)
     			{
@@ -52,7 +54,8 @@ class ServerManager
     
     final static public function _AddNewClient(SocketClient $obj)
     {
-        self::SocketReporter(R_NClient);
+        if(self::$initial == false) static::SocketReporter(R_NCLIENT);
+        if(self::$initial == true) self::$initial = false;
         self::$newClient = $obj;
     }
     
@@ -82,7 +85,7 @@ class ServerManager
   	{
       if(isset(self::$clients[$id]))
       {
-          self::SocketReporter(R_DClient);
+          static::SocketReporter(R_DCLIENT);
   	      unset(self::$clients[$id]);    
       }
   	}
@@ -122,6 +125,6 @@ class ServerManager
     }
     
     // esta funcion es ejecutada al reportar errores
-    static private function SocketReporter($report){ }
+    static protected function SocketReporter($report){ }
 
 }

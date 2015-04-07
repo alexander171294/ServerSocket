@@ -7,7 +7,7 @@ require('../../PHPSocketMaster/iSocketMaster.php');
 require('../../PHPSocketServer/ServerManager.php');
 
 // creamos nuestro cliente y lo que va a realizar
-class UnCliente extends SocketClient
+class UnCliente extends \PHPServerSocket\SocketClient
 {
     
     // cuando ocurra un error en nuestro cliente se ejecutara esta opcion
@@ -71,10 +71,12 @@ class UnCliente extends SocketClient
     */
     public function onSendComplete($message){}
     
+    public function onRefresh() {}
+    
 }
 
 // creamos mi administrador de sockets
-class miAdministrador extends PHPServerSocket/ServerManager
+class miAdministrador extends \PHPServerSocket\ServerManager
 {
     // creamos nuestra funcion que agrega clientes al servidor (para cuando nos llege una conexion)
    static public function AddNewClient()
@@ -87,6 +89,7 @@ class miAdministrador extends PHPServerSocket/ServerManager
    // esta función se ejecutará cuando ocurran eventos en el administrador
    static public function socketReporter($report)
    {
+   
       // si el reporte es que el server ejecutó la función listen
       if($report == R_LISTEN)
       {
