@@ -80,8 +80,11 @@ class ServerManager
     
     final static public function DeleteClient($id) // eliminamos el cliente
   	{
-      self::SocketReporter(R_DClient);
-  		unset(self::$clients[$id]);
+      if(isset(self::$clients[$id]))
+      {
+          self::SocketReporter(R_DClient);
+  	      unset(self::$clients[$id]);    
+      }
   	}
     
     // enviar mensajes a todos los clientes
