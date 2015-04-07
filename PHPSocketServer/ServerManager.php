@@ -98,5 +98,18 @@ class ServerManager
   			self::$clients[$id]->send($message);
       }
     }
+    
+    static public function getClients()
+    {
+      $map = array();
+      for($i=0; $i<count(self::$clients); $i++)
+  		{
+        if(!isset(self::$clients[$i]))
+        {
+  			   $map[] = $i;
+        }
+  		}
+      return $map;
+    }
 
 }

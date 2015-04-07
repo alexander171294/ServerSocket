@@ -34,6 +34,18 @@ class UnCliente extends SocketClient
         enviar a un cliente diferente que no sea este mismo
         recuerde que toda esta clase es instanciada para cada cliente que se conecte.
         Si tuvieramos el id de otro cliente, podemos enviarle a otro cliente un mensaje cuando este cliente se conecte.
+        
+        puedes obtener todos los clientes conectados actualmente usando la funcion
+        getClients() del administrador de sockets:
+        
+        miAdministrador::getClients();
+        
+        esto devolverá un array de los clientes conectados, el total de clientes conectados
+        se pueden obtener con 
+        
+        count(miAdministrador::getClients());
+        
+        y cada id de cada cliente se encuentra en un indice diferente del array retornado por dicha función.
         */
         miAdministrador::SendTo($this->id, 'Conectado al servidor');
     }
