@@ -5,6 +5,10 @@
 require('libs/SocketListener.php');
 require('libs/SocketClient.php');
 
+define('R_LISTEN', 200);
+define('R_NCLIENT', 201);
+define('R_DCLIENT', 202);
+
 class ServerManager
 {
 
@@ -14,14 +18,14 @@ class ServerManager
     
     static protected $newClient = null;
     
-    static public function start($localIP = '127.0.0.1', $port = '2026')
+    final static public function start($localIP = '127.0.0.1', $port = '2026')
     {
         // create a new socket
     		self::$mainSock = new SocketListener($localIP, $port);
     
     		self::$mainSock->listen(); 
   
-        ///////////////////////////////////////////////////////////////////////// avisar que estamos a la escucha aquí
+        self::SocketReporter(R_LISTEN);
     
     		self::AddNewClient();
     
@@ -46,13 +50,14 @@ class ServerManager
   	    self::_AddNewClient(new SocketClient());
   	}*/
     
-    static public function _AddNewClient(SocketClient $obj)
+    final static public function _AddNewClient(SocketClient $obj)
     {
+        self::SocketReporter(R_NClient);
         self::$newClient = $obj;
     }
     
     // agregar el nuevo cliente
-    static public function AddClient($sock)
+    final static public function AddClient($sock)
   	{
       $vacio = false;
       // revisamos que no haya un casillero vacío
@@ -73,13 +78,14 @@ class ServerManager
       }
   	}
     
-    static public function DeleteClient($id) // eliminamos el cliente
+    final static public function DeleteClient($id) // eliminamos el cliente
   	{
+      self::SocketReporter(R_DClient);
   		unset(self::$clients[$id]);
   	}
     
     // enviar mensajes a todos los clientes
-    static public function SendToAll($message) // enviamos un mensaje a todos los clientes
+    final static public function SendToAll($message) // enviamos un mensaje a todos los clientes
   	{
   		for($i=0; $i<count(self::$clients); $i++)
   		{
@@ -91,7 +97,7 @@ class ServerManager
   	}
     
     // enviar mensaje a un cliente usando su id
-    static public function SendTo($id, $message) // enviamos un mensaje a un cliente en particular
+    final static public function SendTo($id, $message) // enviamos un mensaje a un cliente en particular
     {
       if(!isset(self::$clients[$id]))
       {
@@ -99,7 +105,7 @@ class ServerManager
       }
     }
     
-    static public function getClients()
+    final static public function getClients()
     {
       $map = array();
       for($i=0; $i<count(self::$clients); $i++)
@@ -111,5 +117,8 @@ class ServerManager
   		}
       return $map;
     }
+    
+    // esta funcion es ejecutada al reportar errores
+    static private function SocketReporter($report){ }
 
 }
