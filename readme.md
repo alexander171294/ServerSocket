@@ -1,12 +1,12 @@
 Server Socket 
 =============
 
-Librería para manipular servidores con PHPSocketMaster
+Libreria para manipular servidores con PHPSocketMaster
 
-Librería complementaria de la siguiente librería:
+Libreria complementaria de la siguiente libreria:
 
 https://github.com/alexander171294/PHPSocketMaster
 
-Ésta librería le permite gestionar multiples sockets en php para recibir conexiones de forma segura y robusta.
+Esta libreria le permite gestionar multiples sockets en php para recibir conexiones de forma segura y robusta.
 
-Por favor descargue la última versión de PHPSocketMaster y agreguela a una carpeta con dicho nombre para utilizarla.
+Por favor descargue la ultima version de PHPSocketMaster y agreguela a una carpeta con dicho nombre para utilizarla.
