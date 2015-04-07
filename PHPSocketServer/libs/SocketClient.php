@@ -18,6 +18,6 @@ abstract class SocketClient extends PHPSocketMaster\SocketEventReceptor
     
     public function onSendRequest(&$cancel, $message);
     
-    public function onSendComplete($message)
+    public function onSendComplete($message);
 
 }
