@@ -31,19 +31,24 @@ abstract class ServerManager
     
     		static::AddNewClient();
     
-    		while(true)
-    		{
-    			self::$mainSocket->refreshListen(self::$newClient); // detect new clients
-    			// refresh clients
-          $valores = count(self::$clients);
-    			for($i=0; $i<$valores; $i++)
-    			{
-    				if(isset(self::$clients[$i]))
-            {
-              self::$clients[$i]->refresh();
-            } else $valores++; // como hay uno que no existe, tenemos que seguir uno más con el for
-    			}
-    		}
+        if(!defined('SCKM_THREAD') || SCKM_THREAD == false)
+        {
+      		while(true)
+      		{
+      			self::$mainSocket->refreshListen(self::$newClient); // detect new clients
+      			// refresh clients
+            $valores = count(self::$clients);
+      			for($i=0; $i<$valores; $i++)
+      			{
+      				if(isset(self::$clients[$i]))
+              {
+                self::$clients[$i]->refresh();
+              } else $valores++; // como hay uno que no existe, tenemos que seguir uno más con el for
+      			}
+      		}
+        } else {
+          self::$mainSocket->loop_refreshListen(self::$newClient);
+        }
     }
     
     // esta funcion debe ser reescrita por la persona que use la clase
