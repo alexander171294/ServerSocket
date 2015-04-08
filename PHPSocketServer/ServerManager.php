@@ -79,6 +79,7 @@ abstract class ServerManager
           $sock->SocketEventReceptor->id = count(self::$clients); // add te id
 		      self::$clients[count(self::$clients)] = $sock;
       }
+      $sock->SocketEventReceptor->onReady();
   	}
     
     final static public function DeleteClient($id) // eliminamos el cliente

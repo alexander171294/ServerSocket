@@ -13,8 +13,8 @@ class SocketListener extends \PHPSocketMaster\SocketMaster
 
 	public function onNewConnection(\PHPSocketMaster\SocketBridge $socket)
 	{
-		ServerManager::AddNewClient();
-		ServerManager::AddClient($socket);
+    call_user_func(SRV_MGR.'::AddNewClient');
+    call_user_func(SRV_MGR.'::AddClient', $socket);
 	}
     
   public function onSendRequest(&$cancel, $message) {}   

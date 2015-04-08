@@ -7,7 +7,14 @@ abstract class SocketClient extends \PHPSocketMaster\SocketEventReceptor
     
     public function onDisconnect()
   	{
-  		ServerManager::DeleteClient($this->id);
+      call_user_func(SRV_MGR.'::DeleteClient', $this->id);
   	}
-
+    
+    public function onConnect()
+    {
+    
+    }
+    
+    abstract public function onReady();
+    
 }
