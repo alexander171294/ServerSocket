@@ -96,7 +96,7 @@ abstract class ServerManager
   	{
   		for($i=0; $i<count(self::$clients); $i++)
   		{
-        if(!isset(self::$clients[$i]))
+        if(isset(self::$clients[$i]))
         {
   			   self::$clients[$i]->send($message);
         }
@@ -106,7 +106,7 @@ abstract class ServerManager
     // enviar mensaje a un cliente usando su id
     final static public function SendTo($id, $message) // enviamos un mensaje a un cliente en particular
     {
-      if(!isset(self::$clients[$id]))
+      if(isset(self::$clients[$id]))
       {
   			self::$clients[$id]->send($message);
       }
