@@ -5,9 +5,10 @@ abstract class SocketClient extends \PHPSocketMaster\SocketEventReceptor
 
     public $id;
     
-    public function onDisconnect()
+    final public function onDisconnect()
   	{
       call_user_func(SRV_MGR.'::DeleteClient', $this->id);
+      $this->_onDisconnect();
   	}
     
     public function onConnect()
@@ -16,5 +17,6 @@ abstract class SocketClient extends \PHPSocketMaster\SocketEventReceptor
     }
     
     abstract public function onReady();
+    abstract public function _onDisconnect();
     
 }
