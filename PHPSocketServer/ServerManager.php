@@ -37,7 +37,7 @@ abstract class ServerManager
     			// refresh clients
     			for($i=0; $i<count(self::$clients); $i++)
     			{
-    				if(isset($clients[$i])) self::$clients[$i]->refresh();
+    				if(isset(self::$clients[$i])) self::$clients[$i]->refresh();
     			}
     		}
     }
