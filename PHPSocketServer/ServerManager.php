@@ -30,12 +30,14 @@ abstract class ServerManager
         static::SocketReporter(R_LISTEN);
     
     		static::AddNewClient();
+        
+        $svtype = (defined('SRV_WSK') && SRV_WSK == true) ? SCKM_WEB : SCKM_BASIC;
     
         if(!defined('SCKM_THREAD') || SCKM_THREAD == false)
         {
       		while(true)
       		{
-      			self::$mainSocket->refreshListen(self::$newClient); // detect new clients
+      			self::$mainSocket->refreshListen(self::$newClient, $svtype); // detect new clients
       			// refresh clients
             $valores = count(self::$clients);
       			for($i=0; $i<$valores; $i++)
@@ -47,7 +49,7 @@ abstract class ServerManager
       			}
       		}
         } else {
-          self::$mainSocket->loop_refreshListen(self::$newClient);
+          self::$mainSocket->loop_refreshListen(self::$newClient, $svtype);
         }
     }
     
