@@ -1,5 +1,8 @@
 <?php
 
+// nombre de la clase que gestionará los sockets 
+define('SRV_MGR', 'miAdministrador');
+
 // requerimos PHPSocketMaster
 require('../../PHPSocketMaster/iSocketMaster.php');
 
@@ -18,7 +21,7 @@ class UnCliente extends \PHPServerSocket\SocketClient
     }
     
     // esto se ejecutara cuando se realice la conexion satisfactoria de un nuevo cliente
-    public function onConnect()
+    public function onReady()
     {
         echo 'Se conecto un cliente';
     }
@@ -48,6 +51,14 @@ class UnCliente extends \PHPServerSocket\SocketClient
   	{
   		miAdministrador::DeleteClient($this->id);
   	}
+    
+    /* dado que el serverManager necesita utilizar el evento onDisconnect para 
+        gestionar los socket activos, se creó ésta función para que tu puedas
+        utilizarla en una desconexión */ 
+    public function _onDisconnect()
+    {
+        echo 'Me desconecté :( '.$this->id;
+    }
     
 }
 

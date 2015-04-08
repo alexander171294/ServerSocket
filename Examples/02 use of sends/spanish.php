@@ -80,6 +80,14 @@ class UnCliente extends \PHPServerSocket\SocketClient
     
     public function onRefresh() {}
     
+    /* dado que el serverManager necesita utilizar el evento onDisconnect para 
+        gestionar los socket activos, se creó ésta función para que tu puedas
+        utilizarla en una desconexión */ 
+    public function _onDisconnect()
+    {
+        echo 'Me desconecté :( '.$this->id;
+    }
+    
 }
 
 // creamos mi administrador de sockets
