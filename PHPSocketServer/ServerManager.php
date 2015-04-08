@@ -35,9 +35,13 @@ abstract class ServerManager
     		{
     			self::$mainSocket->refreshListen(self::$newClient); // detect new clients
     			// refresh clients
-    			for($i=0; $i<count(self::$clients); $i++)
+          $valores = count(self::$clients);
+    			for($i=0; $i<$valores; $i++)
     			{
-    				if(isset(self::$clients[$i])) self::$clients[$i]->refresh();
+    				if(isset(self::$clients[$i]))
+            {
+              self::$clients[$i]->refresh();
+            } else $valores++; // como hay uno que no existe, tenemos que seguir uno más con el for
     			}
     		}
     }
