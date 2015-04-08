@@ -17,7 +17,7 @@ class UnCliente extends \PHPServerSocket\SocketClient
     public function onError()
     {
         // enviamos un mensaje a la consola para avisar que hubo un error en un cliente
-        echo 'OOps error en un cliente';
+        //echo 'OOps error en un cliente';
     }
     
     // esto se ejecutara cuando se realice la conexion satisfactoria de un nuevo cliente
@@ -59,10 +59,10 @@ class UnCliente extends \PHPServerSocket\SocketClient
     // esta funcion se ejecutara cuando un cliente nos envíe un mensaje
     public function onReceiveMessage($message)
     {
-        echo 'El servidor recibio el siguiente mensaje: '.$message;
+        echo 'El servidor recibio el siguiente mensaje: '.$message[0];
         // ahora enviaremos el mensaje que recibimos a todos los clientes conectados al servidor
         // tenga en cuenta que con $this->id obtenemos el id del cliente actual
-        miAdministrador::SendToAll('El cliente: '.$this->id.' envio el siguiente mensaje: '.$message);
+        miAdministrador::SendToAll('El cliente: '.$this->id.' envio el siguiente mensaje: '.$message[0]);
     }
     
     /* cuando nosotros queremos enviar un mensaje desde el servidor a este cliente,
