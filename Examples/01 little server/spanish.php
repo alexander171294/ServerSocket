@@ -43,6 +43,12 @@ class UnCliente extends \PHPServerSocket\SocketClient
     
     public function onRefresh() {}
     
+    // cuando nos desconectemos le avisamos al administrador de sockets
+    public function onDisconnect()
+  	{
+  		miAdministrador::DeleteClient($this->id);
+  	}
+    
 }
 
 // creamos mi administrador de sockets
@@ -57,4 +63,4 @@ class miAdministrador extends \PHPServerSocket\ServerManager
 }
 
 // iniciamos el servidor indicando ip local o ip local de la red, y el puerto en el cual vamos a esperar conexiones
-miAdministrador::start('127.0.0.1', '2246');
+miAdministrador::start('127.0.0.1', '2026');

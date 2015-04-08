@@ -1,5 +1,8 @@
 <?php
 
+// nombre de la clase que gestionará los sockets 
+define('SRV_MGR', 'miAdministrador');
+
 // requerimos PHPSocketMaster
 require('../../PHPSocketMaster/iSocketMaster.php');
 
@@ -18,7 +21,10 @@ class UnCliente extends \PHPServerSocket\SocketClient
     }
     
     // esto se ejecutara cuando se realice la conexion satisfactoria de un nuevo cliente
-    public function onConnect()
+    // esto reemplaza a onConnect de PHPSocketMaster
+    // ESTO SOLO FUNCIONA CON LA LIBRERÍA ServerSocket
+    // si usted solo usa PHPSocketMaster por favor utilice onConnect()
+    public function onReady()
     {
         echo 'Se conecto un cliente';
         /* enviaremos un mensaje al cliente que se acaba de conectar, para avisarle que se conectó satisfactoriamente
@@ -47,6 +53,7 @@ class UnCliente extends \PHPServerSocket\SocketClient
         
         y cada id de cada cliente se encuentra en un indice diferente del array retornado por dicha función.
         */
+        echo 'enviando mensaje a '.$this->id;
         miAdministrador::SendTo($this->id, 'Conectado al servidor');
     }
     
@@ -76,6 +83,7 @@ class UnCliente extends \PHPServerSocket\SocketClient
 }
 
 // creamos mi administrador de sockets
+// el nombre de esta clase debe coincidir con el valor de la constante SRV_MGR
 class miAdministrador extends \PHPServerSocket\ServerManager
 {
     // creamos nuestra funcion que agrega clientes al servidor (para cuando nos llege una conexion)
@@ -87,4 +95,4 @@ class miAdministrador extends \PHPServerSocket\ServerManager
 }
 
 // iniciamos el servidor indicando ip local o ip local de la red, y el puerto en el cual vamos a esperar conexiones
-miAdministrador::start('127.0.0.1', '2246');
+miAdministrador::start('127.0.0.1', '2026');
