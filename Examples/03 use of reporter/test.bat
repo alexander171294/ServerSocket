@@ -1,0 +1,2 @@
+php spanish.php
+pause

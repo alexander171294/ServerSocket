@@ -13,7 +13,13 @@ abstract class SocketClient extends \PHPSocketMaster\SocketEventReceptor
     
     public function onConnect()
     {
-    
+        if($this->firstExecution) $this->firstExecution = false;
+        else {
+            if(defined('SRV_WSK'))
+            {
+                $this->onReady();
+            }
+        }
     }
     
     abstract public function onReady();

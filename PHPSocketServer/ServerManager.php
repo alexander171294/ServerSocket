@@ -90,7 +90,11 @@ abstract class ServerManager
           $sock->SocketEventReceptor->id = count(self::$clients); // add te id
 		      self::$clients[count(self::$clients)] = $sock;
       }
-      $sock->SocketEventReceptor->onReady();
+      // llamamos al onready desde acá si no estamos usando websockets
+      if(!defined('SRV_WSK'))
+          $sock->SocketEventReceptor->onReady();
+      // si estamos usando websockets tenemos que llamarlo directamente desde la segunda 
+      // ejecución del evento onConnect
   	}
     
     final static public function DeleteClient($id) // eliminamos el cliente
