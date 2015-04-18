@@ -32,6 +32,7 @@ abstract class ServerManager
     		static::AddNewClient();
         
         $svtype = (defined('SRV_WSK') && SRV_WSK == true) ? SCKM_WEB : SCKM_BASIC;
+		$svtype = (defined('SRV_DUAL') && SRV_DUAL == true) ? SCKM_DUAL : $svtype;
     
         if(!defined('SCKM_THREAD') || SCKM_THREAD == false)
         {
