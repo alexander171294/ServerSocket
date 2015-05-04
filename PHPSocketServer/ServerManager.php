@@ -25,7 +25,9 @@ abstract class ServerManager
         // create a new socket
     		self::$mainSocket = new SocketListener($localIP, $port);
     
-    		self::$mainSocket->listen(); 
+    		self::$mainSocket->listen();
+			
+			static::onReady();
   
         static::SocketReporter(R_LISTEN);
     
@@ -39,6 +41,7 @@ abstract class ServerManager
       		while(true)
       		{
       			self::$mainSocket->refreshListen(self::$newClient, $svtype); // detect new clients
+				static::onRefresh();
       			// refresh clients
             $valores = count(self::$clients);
       			for($i=0; $i<$valores; $i++)
@@ -143,5 +146,8 @@ abstract class ServerManager
     
     // esta funcion es ejecutada al reportar errores
     static protected function SocketReporter($report){ }
+	
+	static protected function onRefresh(){}
+	static protected function onReady(){}
 
 }
